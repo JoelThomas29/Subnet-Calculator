@@ -66,27 +66,45 @@ def hosts_and_subnet(inputs):
     print("Host bits : {}\n"
           "Total hosts : {}\n"
           "Network Address : {}\n"
-          "First host IP address : {}\n"
-          "Last host IP address : {}\n"
+          "First IP address : {}\n"
+          "Last IP address : {}\n"
           "Broadcast Address : {}\n"
           "Wildcard Mask : {}".format(host_bits, total_hosts, NETWORK_ADDRESS, FIRST_IP, LAST_IP, BROADCAST_ADDRESS, WILDCARD_MASK))
 
-    while True:
-        user = input("\nDo you want to generate a random IP (y/n) : ")
-        if user == 'Y' or user == 'y':
-            while True:
-                first = random.randint(0, host_bits)
-                second = host_bits - first
-                random_ip_binary = binaries_appended[0][:network_bits] + str(random.randint(0, 1)) * (first) + str(random.randint(0, 1)) * (second)
-                RANDOM_HOST_IP = binary_to_decimal(random_ip_binary)
-                if RANDOM_HOST_IP != BROADCAST_ADDRESS and RANDOM_HOST_IP != NETWORK_ADDRESS:
-                    print("Random host IP address : %s" %(RANDOM_HOST_IP))
+    flag = False
+    if (host_bits == 0 or host_bits == 1):
+        loading_feature()
+        print("Random IP cannot be generated for the subnet mask entered\n")
+        print("Exiting the program")
+    else:
+        random_ip_stack = []
+        while True:
+            user = input("\nDo you want to generate a random IP (y/n) : ")
+            if user == 'Y' or user == 'y':
+                while True:
+                    first = random.randint(0, host_bits)
+                    second = host_bits - first
+                    random_ip_binary = binaries_appended[0][:network_bits] + str(random.randint(0, 1)) * (first) + str(random.randint(0, 1)) * (second)
+                    RANDOM_HOST_IP = binary_to_decimal(random_ip_binary)
+                    if len(random_ip_stack) == total_hosts:
+                        loading_feature()
+                        print("Random host IP generation exhausted for the range")
+                        flag = True
+                        break
+                    else:
+                        if RANDOM_HOST_IP != BROADCAST_ADDRESS and RANDOM_HOST_IP != NETWORK_ADDRESS and RANDOM_HOST_IP not in random_ip_stack:
+                            print("Random host IP address : %s" %(RANDOM_HOST_IP))
+                            random_ip_stack.append(RANDOM_HOST_IP)
+                            break
+                        else:
+                            continue
+                if flag == True:
+                    print("Total random host IP generated : {}".format(random_ip_stack))
+                    print("Exiting the program")
                     break
-                else:
-                    continue
-        elif user == 'n' or user == 'N':
-            loading_feature()
-            print("Exiting the program")
-            break
-        else:
-            continue
+            elif user == 'n' or user == 'N':
+                loading_feature()
+                print("Exiting the program")
+                break
+            else:
+                continue
