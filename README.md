@@ -12,4 +12,3 @@ run.py --> Orchestrates the execution of the applcation
 
 Validating_IP_and_SubnetMask.py --> Validates the user inputs before passing these parameters to the next program.
 Calculating_Hosts_and_Subnet.py --> Uses the inputs and calculates the said parameters, also asks user to generate random IP from the                                         calculated range
-  
