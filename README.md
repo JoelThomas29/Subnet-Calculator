@@ -10,5 +10,6 @@ This is a Python3 application. Please run 'run.py' to start.
 ## FILES
 run.py --> Orchestrates the execution of the applcation
 
-Validating_IP_and_SubnetMask.py --> Validates the user inputs before passing these parameters to the next program.
-Calculating_Hosts_and_Subnet.py --> Uses the inputs and calculates the said parameters, also asks user to generate random IP from the                                         calculated range
+input_validation.py --> Validates the user inputs before passing these parameters to the core logic of the application
+Calculating_Hosts_and_Subnet.py --> Core logic- Uses the inputs and calculates the said parameters 
+input_output --> File handling all input-output operations
