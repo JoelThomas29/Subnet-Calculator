@@ -6,8 +6,6 @@
 	>  first host address
 	>  last host address
 	>  broadcast address """
-import random
-from Validating_IP_and_SubnetMask import loading_feature
 
 def binary_to_decimal(value):
     list_binary = []
@@ -21,8 +19,6 @@ def binary_to_decimal(value):
     return '.'.join(list_decimal)
 
 def hosts_and_subnet(inputs):
-    print("***** Results")
-    loading_feature()
     # Converting inputs to binary
     binaries_appended = []
     for entry in inputs:
@@ -63,37 +59,4 @@ def hosts_and_subnet(inputs):
     LAST_IP = binary_to_decimal(last_ip_binary)
     BROADCAST_ADDRESS = binary_to_decimal(broadcast_binary)
 
-    print("Host bits : {}\n"
-          "Total hosts : {}\n"
-          "Network Address : {}\n"
-          "First IP address : {}\n"
-          "Last IP address : {}\n"
-          "Broadcast Address : {}\n"
-          "Wildcard Mask : {}".format(host_bits, total_hosts, NETWORK_ADDRESS, FIRST_IP, LAST_IP, BROADCAST_ADDRESS, WILDCARD_MASK))
-
-
-    if (host_bits == 0 or host_bits == 1):
-        loading_feature()
-        print("Random IP cannot be generated for the subnet mask entered\n")
-        print("Exiting the program")
-    else:
-        while True:
-            user = input("\nDo you want to generate a random IP (y/n) : ")
-            if user == 'Y' or user == 'y':
-                while True:
-                    first = random.randint(0, host_bits)
-                    second = host_bits - first
-                    random_ip_binary = binaries_appended[0][:network_bits] + str(random.randint(0, 1)) * (first) + str(random.randint(0, 1)) * (second)
-                    RANDOM_HOST_IP = binary_to_decimal(random_ip_binary)
-                    if RANDOM_HOST_IP != BROADCAST_ADDRESS and RANDOM_HOST_IP != NETWORK_ADDRESS:
-                        print("Random host IP address : %s" %(RANDOM_HOST_IP))
-                        break
-                    else:
-                        continue
-                break
-            elif user == 'n' or user == 'N':
-                loading_feature()
-                print("Exiting the program")
-                break
-            else:
-                continue
+    return [host_bits, total_hosts, NETWORK_ADDRESS, FIRST_IP, LAST_IP, BROADCAST_ADDRESS, WILDCARD_MASK]
